@@ -1,0 +1,99 @@
+<!doctype html><html lang="ar" dir="rtl"><meta charset="utf-8">
+<style>
+@font-face{font-family:C;font-weight:800;src:url(fonts/cairo-arabic-800-normal.woff2);unicode-range:U+0600-06FF,U+200C-200F,U+FB50-FDFF,U+FE70-FEFF}
+@font-face{font-family:C;font-weight:800;src:url(fonts/cairo-latin-800-normal.woff2);unicode-range:U+0000-00FF}
+@font-face{font-family:C;font-weight:900;src:url(fonts/cairo-arabic-900-normal.woff2);unicode-range:U+0600-06FF,U+200C-200F,U+FB50-FDFF,U+FE70-FEFF}
+html,body{margin:0;background:transparent;width:720px;height:1280px;overflow:hidden;font-family:C,sans-serif}
+#top{position:absolute;inset:0 0 auto 0;height:330px;background:linear-gradient(#000c,#0000)}
+#bot{position:absolute;inset:auto 0 0 0;height:420px;background:linear-gradient(#0000,#000b)}
+#title{position:absolute;top:70px;left:0;right:0;text-align:center;white-space:nowrap}
+#title .w{display:inline-block;font-weight:900;font-size:84px;color:#fff;margin:0 6px;text-shadow:0 6px 0 #b3121a,0 10px 24px #0008}
+#title .hl{background:linear-gradient(90deg,#ffd23f,#ff8a00);-webkit-background-clip:text;color:transparent;text-shadow:none;filter:drop-shadow(0 6px 0 #b3121a)}
+#sub{position:absolute;top:210px;left:0;right:0;text-align:center}
+#sub span{display:inline-block;background:#e11d2e;color:#fff;font-weight:800;font-size:36px;padding:4px 30px;border-radius:40px;box-shadow:0 6px 18px #0007}
+.tag{position:absolute;right:30px;display:flex;align-items:center;gap:14px;background:#fffffff2;color:#1a1a1a;font-weight:900;font-size:44px;padding:10px 28px 10px 34px;border-radius:60px;box-shadow:0 10px 26px #0007;white-space:nowrap}
+.tag i{display:inline-block;width:56px;height:56px;border-radius:50%;background:#16a34a;position:relative}
+.tag i:after{content:"";position:absolute;left:19px;top:9px;width:14px;height:28px;border:solid #fff;border-width:0 7px 7px 0;transform:rotate(45deg)}
+#cap{position:absolute;left:30px;right:30px;top:880px;text-align:center;line-height:1.35}
+#cap .w{display:inline-block;font-weight:900;font-size:64px;color:#fff;margin:0 7px;-webkit-text-stroke:10px #000;paint-order:stroke fill;text-shadow:0 6px 14px #0009}
+#cap .w.on{color:#ffd23f}
+#chick{position:absolute;right:16px;bottom:22px;width:270px;height:300px}
+#lab{position:absolute;right:14px;bottom:30px;width:262px;white-space:nowrap;text-align:center}
+#lab span{display:inline-block;background:linear-gradient(#ff3b3b,#c40d1c);color:#fff;font-weight:900;font-size:38px;padding:2px 22px 6px;border-radius:14px;border:4px solid #fff;box-shadow:0 8px 18px #0008}
+#prog{position:absolute;left:0;bottom:0;height:10px;background:#ffd23f}
+#flash{position:absolute;inset:0;background:radial-gradient(circle at 70% 60%,#ffffffaa,#0000 60%);opacity:0}
+.spark{position:absolute;width:40px;height:40px}
+</style>
+<div id="top"></div><div id="bot"></div><div id="flash"></div>
+<div id="title"></div><div id="sub"><span>طازج · نظيف · مضمون</span></div>
+<div id="tags"></div><div id="cap"></div>
+<svg id="chick" viewBox="0 0 270 300">
+ <defs><radialGradient id="g" cx=".4" cy=".35"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#f1e4cf"/></radialGradient></defs>
+ <ellipse cx="135" cy="285" rx="90" ry="10" fill="#0006"/>
+ <g id="cb">
+  <path d="M60 190q-30-40 10-70" stroke="#e6d3b3" stroke-width="22" fill="none" stroke-linecap="round"/>
+  <ellipse cx="140" cy="200" rx="88" ry="72" fill="url(#g)" stroke="#d9c29d" stroke-width="4"/>
+  <path d="M95 200q40 40 90-5" fill="none" stroke="#e6d3b3" stroke-width="8" stroke-linecap="round"/>
+  <path d="M120 270l-8 22m8-22l8 22m16-22l0 22m0-22l12 20" stroke="#f59e0b" stroke-width="9" stroke-linecap="round"/>
+  <g id="hd">
+   <circle cx="170" cy="105" r="52" fill="url(#g)" stroke="#d9c29d" stroke-width="4"/>
+   <path d="M150 60q-6-28 14-30 4-16 22-8 18-4 20 16 14 6 4 24-30-18-60-2z" fill="#e11d2e"/>
+   <path d="M205 112l46 12-46 16z" fill="#fbbf24" stroke="#d98f0a" stroke-width="3" stroke-linejoin="round"/>
+   <path d="M196 148q10 36-6 34-16-4-8-34z" fill="#e11d2e"/>
+   <circle cx="185" cy="98" r="9" fill="#111"/><circle cx="188" cy="95" r="3" fill="#fff"/>
+  </g>
+ </g>
+</svg>
+<div id="lab"><span>فروج الحلو</span></div>
+<div id="prog"></div>
+<script>
+const DUR=37.53;
+const ease=(t)=>1-Math.pow(1-Math.min(1,Math.max(0,t)),3);
+const back=(t)=>{t=Math.min(1,Math.max(0,t));const c=2.2;return 1+(c+1)*Math.pow(t-1,3)+c*Math.pow(t-1,2)};
+const $=s=>document.querySelector(s);
+const words=["أجود","أنواع","اللحوم"], hl=2;
+$('#title').innerHTML=words.map((w,i)=>`<span class="w ${i==hl?'hl':''}">${w}</span>`).join('');
+const TAGS=[["لحم طازج 100%",11.5],["مفرّز ومغلّف بنظافة",15.5],["جودة ما إلها مثيل",20.5]];
+$('#tags').innerHTML=TAGS.map((t,i)=>`<div class="tag" style="top:${430+i*105}px"><i></i><span>${t[0]}</span></div>`).join('');
+const TS=[...document.querySelectorAll('.tag')];
+let caps=[];
+fetch('captions.json').then(r=>r.json()).then(j=>caps=j).catch(()=>{});
+window.setCaps=j=>{caps=j};
+window.setT=function(t){
+ // title
+ const tt=t<0.3?0:t;
+ const out=t>5.0?ease((t-5.0)/.5):0;
+ $('#title').style.opacity=1-out*0.0; 
+ $('#title').style.transform=`translateY(${-out*0}px) scale(${1-out*0.35})`;
+ $('#title').style.transformOrigin='50% 0';
+ document.querySelectorAll('#title .w').forEach((w,i)=>{const p=back((t-0.15-i*0.18)/0.55);w.style.transform=`translateY(${(1-p)*-120}px) scale(${0.4+0.6*p}) rotate(${(1-p)*-8}deg)`;w.style.opacity=Math.min(1,p*2)});
+ const shine=((t*0.8)%2); $('.hl').style.filter=`drop-shadow(0 6px 0 #b3121a) brightness(${1+0.25*Math.sin(t*5)})`;
+ const sp=back((t-0.9)/0.5); $('#sub').style.transform=`scale(${sp})`; $('#sub').style.opacity=Math.min(1,sp*2);
+ $('#sub').style.top=(210-out*38)+'px';
+ // tags
+ TAGS.forEach((g,i)=>{const s=g[1],e=s+3.8;let p=back((t-s)/0.5),o=ease((t-e)/0.35);
+  const el=TS[i];el.style.transform=`translateX(${(1-Math.min(p,1.2))*420+o*500}px) scale(${1+ (p>1?(p-1):0)})`;el.style.opacity=t<s?0:1-o*0.0;
+  if(t>=e+0.4)el.style.opacity=0;});
+ // flash on tag
+ let f=0;TAGS.forEach(g=>{const d=t-g[1];if(d>0&&d<0.45)f=Math.max(f,1-d/0.45)});$('#flash').style.opacity=f*0.6;
+ // chicken
+ const cp=back((t-1.2)/0.7);
+ const bob=Math.sin(t*6)*6;
+ $('#chick').style.transform=`translateY(${(1-cp)*400+bob*0.5}px) scale(${0.6+0.4*cp})`;
+ $('#chick').style.transformOrigin='80% 100%';
+ $('#hd').style.transform=`rotate(${Math.sin(t*6)*5}deg) translateY(${Math.abs(Math.sin(t*6))*-6}px)`;
+ $('#hd').style.transformOrigin='160px 150px';
+ $('#cb').style.transform=`scaleY(${1+Math.sin(t*6+1)*0.02})`;$('#cb').style.transformOrigin='140px 270px';
+ const lp=back((t-1.7)/0.5);$('#lab').style.transform=`scale(${lp}) rotate(${Math.sin(t*3)*2}deg)`;$('#lab').style.opacity=Math.min(1,lp*2);
+ // captions
+ const cur=caps.find(c=>t>=c.s&&t<c.e);
+ const cap=$('#cap');
+ if(cur){const ws=cur.t.split(' ');const dur=cur.e-cur.s;
+  if(cap.dataset.k!=cur.s){cap.dataset.k=cur.s;cap.innerHTML=ws.map(w=>`<span class="w">${w}</span>`).join(' ')}
+  const n=ws.length;[...cap.children].forEach((el,i)=>{const ws_=cur.s+i/n*dur;const p=back((t-ws_)/0.28);const act=t>=ws_&&t<ws_+dur/n;
+   el.style.opacity=t<ws_?0:1;el.style.transform=`scale(${0.5+0.5*p}) translateY(${(1-p)*30}px)`;el.classList.toggle('on',act)});
+  cap.style.display='block'}else cap.style.display='none';
+ $('#prog').style.width=(t/DUR*720)+'px';
+};
+setT(0);
+</script></html>
