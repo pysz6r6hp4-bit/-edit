@@ -1,0 +1,11 @@
+{
+  "fps": 30,
+  "segments": [
+    {"id": "HOOK",   "src_in": 24.45, "src_out": 27.13, "note": "Ten fingers: '...الستة بعشرة، بعشرة شيكل' — cold-open hook"},
+    {"id": "INTRO",  "src_in": 0.30,  "src_out": 2.74,  "note": "'هاني شو عندك هاني؟ عثمان صلّينا على النبي'"},
+    {"id": "COUNT",  "src_in": 5.25,  "src_out": 17.15, "note": "'كمان في عروض على الكولا' + counting six cans out + 'هدول بكم يا معلم؟'"},
+    {"id": "PRICE",  "src_in": 18.30, "src_out": 24.45, "note": "'قولي خمسطعش؟ مش خمسطعش يا عثمان — هدول الستة بعشرة شيكل يا حاج'"},
+    {"id": "HERO",   "src_in": 27.13, "src_out": 38.20, "note": "'كوكاكولا 300 ملي' can lift → 'عند فروج الحلو' → address → welcome"}
+  ],
+  "endcard_seconds": 1.8
+}

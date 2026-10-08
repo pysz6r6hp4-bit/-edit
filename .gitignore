@@ -1,0 +1,5 @@
+node_modules/
+motion/public/base.mp4
+render/
+analysis/audio16k.wav
+analysis/*.jpg
